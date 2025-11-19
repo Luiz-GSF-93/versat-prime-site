@@ -1,38 +1,4 @@
-import { Hono } from 'hono'
-import { cors } from 'hono/cors'
-import { serveStatic } from 'hono/cloudflare-workers'
 
-const app = new Hono()
-
-// Enable CORS for API routes
-app.use('/api/*', cors())
-
-// Serve static files
-app.use('/static/*', serveStatic({ root: './public' }))
-
-// API routes
-app.get('/api/contact', async (c) => {
-  return c.json({ 
-    message: 'API de contato funcionando',
-    email: 'contato@vesatprime.com.br',
-    phone: '+55 (11) 99999-9999'
-  })
-})
-
-app.post('/api/contact', async (c) => {
-  try {
-    const body = await c.req.json()
-    // Aqui você pode adicionar lógica para enviar email ou salvar em banco de dados
-    console.log('Mensagem recebida:', body)
-    return c.json({ success: true, message: 'Mensagem enviada com sucesso!' })
-  } catch (error) {
-    return c.json({ success: false, message: 'Erro ao processar mensagem' }, 400)
-  }
-})
-
-// Main page
-app.get('/', (c) => {
-  return c.html(`
     <!DOCTYPE html>
     <html lang="pt-BR">
     <head>
@@ -229,7 +195,7 @@ app.get('/', (c) => {
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-gray-900">Experiência Comprovada</h4>
-                                    <p class="text-gray-600">Mais de 10 anos atuando no setor energético</p>
+                                    <p class="text-gray-600">Mais de 16 anos atuando no setor energético</p>
                                 </div>
                             </div>
                             <div class="flex items-start">
@@ -257,11 +223,11 @@ app.get('/', (c) => {
                             <div class="grid grid-cols-2 gap-6">
                                 <div class="bg-white rounded-lg p-6 text-center">
                                     <i class="fas fa-solar-panel text-4xl text-primary mb-3"></i>
-                                    <div class="text-2xl font-bold text-gray-900">Solar</div>
+                                    <div class="text-2xl font-bold text-gray-900">Geração Renovável</div>
                                 </div>
                                 <div class="bg-white rounded-lg p-6 text-center">
                                     <i class="fas fa-lightbulb text-4xl text-accent mb-3"></i>
-                                    <div class="text-2xl font-bold text-gray-900">LED</div>
+                                    <div class="text-2xl font-bold text-gray-900">Planta Energética</div>
                                 </div>
                                 <div class="bg-white rounded-lg p-6 text-center">
                                     <i class="fas fa-wind text-4xl text-secondary mb-3"></i>
@@ -289,20 +255,20 @@ app.get('/', (c) => {
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl p-6 hover:shadow-2xl transition">
                         <i class="fas fa-solar-panel text-4xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Energia Solar</h3>
-                        <p class="text-blue-100">Sistemas fotovoltaicos e geração distribuída</p>
+                        <h3 class="text-xl font-bold mb-2">Energia Renovável</h3>
+                        <p class="text-blue-100">Sistemas fotovoltaicos, cogeração e geração distribuída</p>
                     </div>
                     
                     <div class="bg-gradient-to-br from-green-500 to-green-700 text-white rounded-xl p-6 hover:shadow-2xl transition">
                         <i class="fas fa-plug text-4xl mb-4"></i>
                         <h3 class="text-xl font-bold mb-2">Gestão de Energia</h3>
-                        <p class="text-green-100">Monitoramento e otimização em tempo real</p>
+                        <p class="text-green-100">Digitalização, Monitoramento e otimização em tempo real</p>
                     </div>
                     
                     <div class="bg-gradient-to-br from-yellow-500 to-yellow-700 text-white rounded-xl p-6 hover:shadow-2xl transition">
                         <i class="fas fa-lightbulb text-4xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Iluminação LED</h3>
-                        <p class="text-yellow-100">Retrofit completo com controle inteligente</p>
+                        <h3 class="text-xl font-bold mb-2">Planta Energética</h3>
+                        <p class="text-yellow-100">Retrofit completo com motores, compressores de altaperformance e controle inteligente</p>
                     </div>
                     
                     <div class="bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl p-6 hover:shadow-2xl transition">
@@ -321,14 +287,14 @@ app.get('/', (c) => {
                                 <i class="fas fa-piggy-bank text-2xl text-primary"></i>
                             </div>
                             <h4 class="font-bold text-gray-900 mb-2">Economia Real</h4>
-                            <p class="text-gray-600 text-sm">Redução de até 40% nos custos energéticos</p>
+                            <p class="text-gray-600 text-sm">Redução de até 40% nos custos energéticos, solução completa</p>
                         </div>
                         <div class="text-center">
                             <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                                 <i class="fas fa-clock text-2xl text-secondary"></i>
                             </div>
                             <h4 class="font-bold text-gray-900 mb-2">ROI Rápido</h4>
-                            <p class="text-gray-600 text-sm">Retorno sobre investimento em 2-4 anos</p>
+                            <p class="text-gray-600 text-sm">Retorno sobre investimento em 2-3 anos</p>
                         </div>
                         <div class="text-center">
                             <div class="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
@@ -410,14 +376,14 @@ app.get('/', (c) => {
                                     <i class="fas fa-phone text-2xl mr-4 mt-1"></i>
                                     <div>
                                         <div class="font-bold">Telefone</div>
-                                        <a href="tel:+5511999999999" class="text-blue-200 hover:text-white">+55 (11) 99999-9999</a>
+                                        <a href="tel:+5511999999999" class="text-blue-200 hover:text-white">+55 (16) 99404-3678</a>
                                     </div>
                                 </div>
                                 <div class="flex items-start">
                                     <i class="fas fa-map-marker-alt text-2xl mr-4 mt-1"></i>
                                     <div>
                                         <div class="font-bold">Endereço</div>
-                                        <div class="text-blue-200">São Paulo, SP - Brasil</div>
+                                        <div class="text-blue-200">Ribeirão Preto, SP - Brasil</div>
                                     </div>
                                 </div>
                             </div>
@@ -432,7 +398,7 @@ app.get('/', (c) => {
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="font-bold">Sábado:</span>
-                                    <span>9h às 13h</span>
+                                    <span>Fechado</span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="font-bold">Domingo:</span>
@@ -574,5 +540,5 @@ app.get('/', (c) => {
   `)
 })
 
-export default app
+
 
